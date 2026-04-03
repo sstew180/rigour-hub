@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rigour Studio — studio.rigour.app</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Rigour Labs — studio.rigour.app</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --ink: #0E0E14;
@@ -19,151 +20,120 @@
     --text: #E8E8F0;
     --amber: #C9853A;
     --amber-light: #E8A455;
-    --amber-glow: rgba(201,133,58,0.12);
-    --amber-line: rgba(201,133,58,0.3);
+    --amber-glow: rgba(201,133,58,0.10);
+    --amber-line: rgba(201,133,58,0.28);
     --cream: #F5EFE0;
-    --font-display: 'Cormorant Garamond', Georgia, serif;
-    --font-body: 'Instrument Sans', sans-serif;
-    --font-mono: 'DM Mono', monospace;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   html { scroll-behavior: smooth; }
 
   body {
     background: var(--ink);
     color: var(--text);
-    font-family: var(--font-body);
-    font-size: 16px;
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 15px;
     line-height: 1.6;
     overflow-x: hidden;
   }
 
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 1000;
-    opacity: 0.35;
-  }
-
-  /* NAV */
+  /* ─── NAV ─── */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 100;
+    background: rgba(14,14,20,0.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    height: 56px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 48px;
-    background: rgba(14,14,20,0.88);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(42,42,64,0.6);
   }
 
   .nav-logo {
-    font-family: var(--font-display);
-    font-size: 26px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
     font-weight: 600;
     color: var(--cream);
     letter-spacing: 0.04em;
     text-decoration: none;
   }
-
   .nav-logo span { color: var(--amber); }
 
   .nav-links {
     display: flex;
-    align-items: center;
-    gap: 36px;
+    gap: 32px;
     list-style: none;
+    align-items: center;
   }
 
   .nav-links a {
-    font-family: var(--font-body);
-    font-size: 13px;
-    font-weight: 500;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
     color: var(--text-dim);
     text-decoration: none;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
     transition: color 0.2s;
   }
+  .nav-links a:hover { color: var(--amber-light); }
 
-  .nav-links a:hover { color: var(--text); }
-
-  /* HERO */
+  /* ─── HERO ─── */
   .hero {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: flex-start;
+    padding: 120px 40px 80px;
     position: relative;
-    padding: 120px 48px 80px;
     overflow: hidden;
-    text-align: center;
   }
 
-  .hero-bg {
+  .hero::before {
+    content: '';
     position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201,133,58,0.05) 0%, transparent 70%),
-      linear-gradient(180deg, var(--ink) 0%, var(--deep) 100%);
-  }
-
-  .hero-lines {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
+    top: -20%;
+    right: -10%;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(201,133,58,0.06) 0%, transparent 70%);
     pointer-events: none;
   }
 
-  .hero-lines::before {
+  .hero::after {
     content: '';
     position: absolute;
-    left: 0; right: 0; top: 0; bottom: 0;
-    background-image: repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(42,42,64,0.25) 80px);
-    mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.2) 30%, rgba(0,0,0,0.2) 70%, transparent 100%);
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
   }
 
-  .hero-content { position: relative; z-index: 2; max-width: 780px; }
-
   .hero-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-family: var(--font-mono);
-    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--amber);
-    margin-bottom: 32px;
+    margin-bottom: 28px;
     opacity: 0;
-    animation: fadeUp 0.8s ease 0.2s forwards;
-  }
-
-  .hero-eyebrow::before, .hero-eyebrow::after {
-    content: '';
-    display: block;
-    width: 32px;
-    height: 1px;
-    background: var(--amber-line);
+    animation: fadeUp 0.8s ease 0.1s forwards;
   }
 
   .hero-title {
-    font-family: var(--font-display);
-    font-size: clamp(72px, 10vw, 136px);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 8vw, 100px);
     font-weight: 300;
-    line-height: 0.9;
+    line-height: 1.0;
     color: var(--cream);
-    letter-spacing: -0.02em;
-    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+    max-width: 900px;
     opacity: 0;
-    animation: fadeUp 0.9s ease 0.35s forwards;
+    animation: fadeUp 0.9s ease 0.25s forwards;
   }
 
   .hero-title em {
@@ -172,341 +142,334 @@
   }
 
   .hero-sub {
-    font-family: var(--font-display);
-    font-size: clamp(18px, 2vw, 26px);
-    font-weight: 300;
-    font-style: italic;
-    color: var(--text-dim);
-    margin-bottom: 48px;
-    opacity: 0;
-    animation: fadeUp 0.9s ease 0.5s forwards;
-  }
-
-  .hero-desc {
-    font-size: 17px;
+    max-width: 520px;
+    margin-top: 32px;
+    font-size: 16px;
     color: var(--text-mid);
-    max-width: 500px;
-    margin: 0 auto 64px;
     line-height: 1.7;
+    font-weight: 300;
     opacity: 0;
-    animation: fadeUp 0.9s ease 0.65s forwards;
+    animation: fadeUp 0.9s ease 0.42s forwards;
   }
 
-  .scroll-hint {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted);
+  .hero-cta {
+    display: flex;
+    gap: 16px;
+    margin-top: 44px;
     opacity: 0;
-    animation: fadeUp 0.9s ease 0.9s forwards;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .scroll-hint::after {
-    content: '';
-    display: block;
-    width: 1px;
-    height: 40px;
-    background: linear-gradient(180deg, var(--amber-line), transparent);
-    animation: pulse 2s ease infinite;
-  }
-
-  /* STRIP */
-  .strip {
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 18px 48px;
-    background: var(--deep);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 48px;
+    animation: fadeUp 0.9s ease 0.56s forwards;
     flex-wrap: wrap;
   }
 
-  .strip-item {
+  .btn-primary {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--amber);
+    border: none;
+    padding: 13px 28px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--amber-light); }
+
+  .btn-secondary {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: 13px 28px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+    display: inline-block;
+  }
+  .btn-secondary:hover { border-color: var(--amber-line); color: var(--amber-light); }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
     display: flex;
     align-items: center;
     gap: 10px;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.12em;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.8s forwards;
+  }
+
+  .hero-scroll-line {
+    width: 32px;
+    height: 1px;
+    background: var(--muted);
+  }
+
+  .hero-scroll-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--text-dim);
+    color: var(--muted);
   }
 
-  .strip-dot {
-    width: 5px;
-    height: 5px;
-    background: var(--amber);
-    border-radius: 50%;
-    flex-shrink: 0;
+  /* ─── SECTION COMMON ─── */
+  section {
+    padding: 100px 40px;
   }
 
-  /* PRODUCTS SECTION */
-  .section {
-    padding: 120px 48px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .section-label {
-    font-family: var(--font-mono);
-    font-size: 11px;
+  .section-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--amber);
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .section-label::after {
-    content: '';
-    display: block;
-    height: 1px;
-    width: 48px;
-    background: var(--amber-line);
+    margin-bottom: 16px;
   }
 
   .section-title {
-    font-family: var(--font-display);
-    font-size: clamp(40px, 5vw, 64px);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(34px, 5vw, 54px);
     font-weight: 300;
-    line-height: 1.05;
     color: var(--cream);
-    margin-bottom: 64px;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .section-sub {
+    color: var(--text-dim);
+    font-size: 15px;
+    line-height: 1.7;
     max-width: 560px;
+    font-weight: 300;
+    margin-bottom: 60px;
   }
 
-  .section-title em {
-    font-style: italic;
-    color: var(--amber-light);
+  /* ─── DIVIDER ─── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent);
+    margin: 0 40px;
   }
 
-  /* PRODUCT TILES */
-  .products-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-  }
-
-  .product-tile {
+  /* ─── PRODUCTS ─── */
+  #products {
     background: var(--deep);
-    padding: 56px 48px;
     position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    text-decoration: none;
-    transition: background 0.3s;
   }
 
-  .product-tile::before {
+  #products::before {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--amber-line), transparent);
+    inset: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent calc(100% / 3 - 1px),
+      rgba(42,42,64,0.4) calc(100% / 3 - 1px),
+      rgba(42,42,64,0.4) calc(100% / 3)
+    );
+    pointer-events: none;
+    opacity: 0.3;
+  }
+
+  .products-header {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 56px;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+    position: relative;
+    z-index: 1;
+  }
+
+  .product-card {
+    background: var(--vault);
+    padding: 44px 40px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
     opacity: 0;
-    transition: opacity 0.3s;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease, background 0.3s;
   }
 
-  .product-tile:hover { background: var(--vault); }
-  .product-tile:hover::before { opacity: 1; }
-
-  .product-tile.live::after {
-    content: 'Live';
-    position: absolute;
-    top: 24px;
-    right: 24px;
-    font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--amber);
-    background: var(--amber-glow);
-    border: 1px solid var(--amber-line);
-    padding: 4px 10px;
+  .product-card.revealed {
+    opacity: 1;
+    transform: translateY(0);
   }
 
-  .product-tile.beta::after {
-    content: 'Beta';
-    position: absolute;
-    top: 24px;
-    right: 24px;
-    font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--text-dim);
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--border);
-    padding: 4px 10px;
+  .product-card:hover {
+    background: var(--panel);
   }
 
-  .product-tile.soon::after {
-    content: 'Coming soon';
+  .product-card::before {
+    content: '';
     position: absolute;
-    top: 24px;
-    right: 24px;
-    font-family: var(--font-mono);
-    font-size: 9px;
+    top: 0; left: 0;
+    width: 3px;
+    height: 0;
+    background: var(--amber);
+    transition: height 0.4s ease;
+  }
+  .product-card:hover::before { height: 100%; }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .card-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
     letter-spacing: 0.15em;
-    text-transform: uppercase;
     color: var(--muted);
-    border: 1px solid var(--muted);
-    padding: 4px 10px;
-    opacity: 0.6;
   }
 
-  .product-index {
-    font-family: var(--font-display);
-    font-size: 56px;
-    font-weight: 300;
-    color: var(--muted);
-    line-height: 1;
-    margin-bottom: 32px;
-    transition: color 0.3s;
+  .card-status {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border: 1px solid;
   }
 
-  .product-tile:hover .product-index { color: var(--amber-line); }
+  .status-beta { color: var(--amber); border-color: var(--amber-line); background: var(--amber-glow); }
+  .status-live { color: #6DD87A; border-color: rgba(109,216,122,0.3); background: rgba(109,216,122,0.07); }
+  .status-soon { color: var(--text-dim); border-color: var(--border); background: transparent; }
+  .status-idea { color: var(--muted); border-color: rgba(58,58,85,0.6); background: transparent; }
 
-  .product-name {
-    font-family: var(--font-display);
-    font-size: 36px;
+  .card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
     font-weight: 400;
     color: var(--cream);
+    letter-spacing: 0.01em;
     margin-bottom: 6px;
-    line-height: 1.1;
   }
 
-  .product-domain {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    color: var(--amber);
+  .card-url {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
     margin-bottom: 20px;
-    text-transform: lowercase;
   }
 
-  .product-desc {
-    font-size: 15px;
-    color: var(--text-dim);
-    line-height: 1.7;
-    flex: 1;
-    margin-bottom: 32px;
+  .card-desc {
+    font-size: 14px;
+    color: var(--text-mid);
+    line-height: 1.75;
+    font-weight: 300;
+    margin-bottom: 28px;
   }
 
-  .product-tags {
+  .card-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 32px;
+    gap: 6px;
+    margin-bottom: 28px;
   }
 
-  .product-tag {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    padding: 5px 12px;
-    border: 1px solid var(--border);
-    color: var(--text-dim);
+  .card-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    padding: 3px 9px;
   }
 
-  .product-link {
-    font-family: var(--font-body);
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-dim);
-    letter-spacing: 0.04em;
-    display: flex;
+  .card-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--amber);
+    text-decoration: none;
+    display: inline-flex;
     align-items: center;
     gap: 8px;
-    transition: color 0.2s;
-    align-self: flex-start;
+    transition: gap 0.2s;
   }
-
-  .product-tile:hover .product-link { color: var(--amber); }
-
-  .product-link::after {
-    content: '→';
-    transition: transform 0.2s;
-  }
-
-  .product-tile:hover .product-link::after { transform: translateX(4px); }
-
-  .product-link-muted {
-    font-family: var(--font-body);
-    font-size: 13px;
+  .card-link:hover { gap: 14px; }
+  .card-link::after { content: '→'; }
+  .card-link-disabled {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     color: var(--muted);
-    letter-spacing: 0.04em;
-    align-self: flex-start;
-    cursor: default;
   }
 
-  /* ABOUT SECTION */
-  .about-section {
-    background: var(--deep);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 120px 48px;
+  /* ─── ABOUT ─── */
+  #about {
+    background: var(--ink);
   }
 
-  .about-inner {
-    max-width: 1200px;
-    margin: 0 auto;
+  .about-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 80px;
     align-items: start;
   }
 
-  .about-text {}
-
-  .about-text p {
-    font-size: 16px;
+  .about-left { }
+  .about-left p {
     color: var(--text-mid);
+    font-size: 15px;
     line-height: 1.8;
+    font-weight: 300;
     margin-bottom: 20px;
   }
 
-  .principles {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-  }
+  .about-right { }
 
   .principle {
-    background: var(--deep);
-    padding: 28px 32px;
-    transition: background 0.3s;
+    border-top: 1px solid var(--border);
+    padding: 24px 0;
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 20px;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
   }
 
-  .principle:hover { background: var(--vault); }
+  .principle.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .principle:last-child { border-bottom: 1px solid var(--border); }
 
   .principle-num {
-    font-family: var(--font-mono);
+    font-family: 'DM Mono', monospace;
     font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
+    letter-spacing: 0.1em;
     color: var(--amber);
-    margin-bottom: 8px;
+    padding-top: 2px;
   }
 
   .principle-title {
-    font-family: var(--font-display);
-    font-size: 20px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
     font-weight: 400;
     color: var(--cream);
     margin-bottom: 6px;
@@ -515,135 +478,196 @@
   .principle-desc {
     font-size: 13px;
     color: var(--text-dim);
-    line-height: 1.6;
+    line-height: 1.65;
+    font-weight: 300;
   }
 
-  /* ROADMAP */
-  .roadmap-section {
-    padding: 120px 48px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .roadmap-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    margin-top: 64px;
-  }
-
-  .roadmap-item {
+  /* ─── ROADMAP ─── */
+  #roadmap {
     background: var(--deep);
-    padding: 40px 36px;
-    opacity: 0.5;
-    transition: all 0.3s;
   }
 
-  .roadmap-item:hover { opacity: 0.8; background: var(--vault); }
+  .roadmap-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--border);
+    margin-top: 0;
+  }
+
+  .roadmap-row {
+    display: grid;
+    grid-template-columns: 200px 180px 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    align-items: stretch;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .roadmap-row:last-child { border-bottom: none; }
+
+  .roadmap-row.revealed {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .roadmap-row:hover { background: rgba(201,133,58,0.03); }
 
   .roadmap-stage {
-    font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 16px;
+    padding: 22px 24px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    align-items: center;
   }
 
+  .stage-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid;
+    white-space: nowrap;
+  }
+
+  .stage-live-proto { color: var(--amber); border-color: var(--amber-line); background: var(--amber-glow); }
+  .stage-live { color: #6DD87A; border-color: rgba(109,216,122,0.3); background: rgba(109,216,122,0.07); }
+  .stage-dev { color: #7EB8F0; border-color: rgba(126,184,240,0.3); background: rgba(126,184,240,0.07); }
+  .stage-planned { color: var(--text-dim); border-color: var(--border); }
+  .stage-idea { color: var(--muted); border-color: rgba(58,58,85,0.5); }
+
   .roadmap-name {
-    font-family: var(--font-display);
-    font-size: 24px;
+    padding: 22px 24px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+  }
+
+  .roadmap-name span {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
     font-weight: 400;
     color: var(--cream);
-    margin-bottom: 10px;
   }
 
   .roadmap-desc {
-    font-size: 14px;
-    color: var(--text-dim);
-    line-height: 1.6;
-  }
-
-  /* FOOTER */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 48px;
+    padding: 22px 28px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    background: var(--ink);
-    flex-wrap: wrap;
-    gap: 16px;
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.65;
+    font-weight: 300;
   }
 
-  .footer-logo {
-    font-family: var(--font-display);
-    font-size: 22px;
-    font-weight: 600;
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--deep);
+    border-top: 1px solid var(--border);
+    padding: 48px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .footer-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 32px;
+  }
+
+  .footer-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 300;
     color: var(--cream);
     letter-spacing: 0.04em;
   }
+  .footer-brand span { color: var(--amber); }
 
-  .footer-logo span { color: var(--amber); }
+  .footer-tagline {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 6px;
+  }
 
   .footer-links {
     display: flex;
-    gap: 32px;
-    list-style: none;
+    gap: 28px;
+    flex-wrap: wrap;
+    align-items: center;
   }
 
   .footer-links a {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.1em;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.13em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--text-dim);
     text-decoration: none;
     transition: color 0.2s;
   }
+  .footer-links a:hover { color: var(--amber-light); }
 
-  .footer-links a:hover { color: var(--text-dim); }
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
 
   .footer-copy {
-    font-family: var(--font-mono);
-    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
     color: var(--muted);
-    letter-spacing: 0.08em;
   }
 
-  /* ANIMATIONS */
+  .footer-contact a {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-contact a:hover { color: var(--amber-light); }
+
+  /* ─── ANIMATIONS ─── */
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
-  @keyframes pulse {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 1; }
-  }
-
-  .reveal {
-    opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-
-  .reveal.visible {
-    opacity: 1;
-    transform: none;
-  }
-
-  @media (max-width: 768px) {
-    nav { padding: 16px 24px; }
-    .nav-links { display: none; }
-    .hero { padding: 100px 24px 60px; }
-    .section { padding: 80px 24px; }
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 0 20px; }
+    .nav-links { gap: 20px; }
+    .hero, section { padding-left: 24px; padding-right: 24px; }
+    .divider { margin: 0 24px; }
     .products-grid { grid-template-columns: 1fr; }
-    .about-inner { grid-template-columns: 1fr; }
-    .roadmap-grid { grid-template-columns: 1fr; }
-    footer { flex-direction: column; align-items: flex-start; }
+    .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    .roadmap-row { grid-template-columns: 1fr; }
+    .roadmap-stage, .roadmap-name { border-right: none; border-bottom: 1px solid var(--border); }
+    .roadmap-name { padding-top: 0; }
+    footer { padding: 40px 24px; }
+    .footer-top { flex-direction: column; }
+  }
+
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .hero-title { font-size: 44px; }
+    .products-header h2, .section-title { font-size: 34px; }
   }
 </style>
 </head>
@@ -651,199 +675,286 @@
 
 <!-- NAV -->
 <nav>
-  <a href="https://studio.rigour.app" class="nav-logo">Rigour<span>.</span>studio</a>
+  <a href="#" class="nav-logo">Rigour<span>.</span>studio</a>
   <ul class="nav-links">
-    <li><a href="https://rigour.app" target="_blank">PPE app</a></li>
-    <li><a href="https://arciv.ai" target="_blank">Arciv</a></li>
+    <li><a href="https://rigour.app" target="_blank" rel="noopener">PPE</a></li>
+    <li><a href="https://arciv.ai" target="_blank" rel="noopener">Arciv</a></li>
+    <li><a href="#products">Kando</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-lines"></div>
-  <div class="hero-content">
-    <div class="hero-eyebrow">studio.rigour.app</div>
-    <h1 class="hero-title">Built for<br><em>serious work</em></h1>
-    <p class="hero-sub">Tools that think as hard as you do.</p>
-    <p class="hero-desc">Rigour is a small studio building AI-powered tools for professionals who cannot afford vague outputs, weak reasoning, or generic advice.</p>
-    <div class="scroll-hint">Products below</div>
+<section class="hero" id="home">
+  <p class="hero-eyebrow">Rigour Labs — studio.rigour.app</p>
+  <h1 class="hero-title">
+    Tools built for people<br>who have to <em>defend</em> the work
+  </h1>
+  <p class="hero-sub">
+    A small studio building AI-powered software for consultants, advisers, and anyone who needs to think clearly and write precisely. No bloat. No generic outputs.
+  </p>
+  <div class="hero-cta">
+    <a href="https://arciv.ai" target="_blank" rel="noopener" class="btn-primary">Try Arciv</a>
+    <a href="#products" class="btn-secondary">See the suite</a>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    <span class="hero-scroll-label">Products below</span>
   </div>
 </section>
 
-<!-- STRIP -->
-<div class="strip">
-  <div class="strip-item"><span class="strip-dot"></span>AI-powered</div>
-  <div class="strip-item"><span class="strip-dot"></span>Built for practitioners</div>
-  <div class="strip-item"><span class="strip-dot"></span>Australian made</div>
-  <div class="strip-item"><span class="strip-dot"></span>No filler, no fluff</div>
-  <div class="strip-item"><span class="strip-dot"></span>studio.rigour.app</div>
-</div>
+<div class="divider"></div>
 
 <!-- PRODUCTS -->
-<section class="section" id="products">
-  <div class="section-label reveal">Products</div>
-  <h2 class="section-title reveal">Two live.<br><em>More in the vault.</em></h2>
+<section id="products">
+  <div class="products-header">
+    <p class="section-eyebrow">The suite</p>
+    <h2 class="section-title">Two live. One building.</h2>
+    <p class="section-sub">Each product solves a specific problem in the consulting and advisory workflow.</p>
+  </div>
 
-  <div class="products-grid reveal">
+  <div class="products-grid">
 
-    <!-- ARCIV -->
-    <a href="https://arciv.ai" class="product-tile beta" target="_blank" rel="noopener">
-      <div class="product-index">01</div>
-      <div class="product-name">Arciv</div>
-      <div class="product-domain">arciv.ai</div>
-      <p class="product-desc">An AI workspace that remembers. Every session saved, every decision archived. Context profiles that make the AI smarter over time. Built for professionals who do deep, continuous work and cannot afford to start from zero every conversation.</p>
-      <div class="product-tags">
-        <span class="product-tag">AI workspace</span>
-        <span class="product-tag">Memory</span>
-        <span class="product-tag">Context</span>
-        <span class="product-tag">Claude API</span>
+    <!-- Arciv -->
+    <div class="product-card">
+      <div class="card-header">
+        <span class="card-number">01</span>
+        <span class="card-status status-beta">Beta</span>
       </div>
-      <span class="product-link">Visit arciv.ai</span>
-    </a>
+      <div class="card-name">Arciv</div>
+      <div class="card-url">arciv.ai</div>
+      <p class="card-desc">An AI workspace that remembers. Every session saved, every decision archived. Context profiles that make the AI smarter over time. Built for consultants and advisers who do deep, continuous work and cannot afford to start from zero every conversation.</p>
+      <div class="card-tags">
+        <span class="card-tag">AI workspace</span>
+        <span class="card-tag">Memory</span>
+        <span class="card-tag">Context</span>
+        <span class="card-tag">Claude API</span>
+      </div>
+      <a href="https://arciv.ai" target="_blank" rel="noopener" class="card-link">Visit arciv.ai</a>
+    </div>
 
     <!-- PPE -->
-    <a href="https://rigour.app" class="product-tile live" target="_blank" rel="noopener">
-      <div class="product-index">02</div>
-      <div class="product-name">Prompt Prescription Engine</div>
-      <div class="product-domain">rigour.app</div>
-      <p class="product-desc">Answer six diagnostic questions about your document. Get a precise rule stack to paste at the end of any AI prompt. Based on the framework from How to Train Your AI by Scott Stewart. Eliminates generic AI outputs for board papers, briefs, and strategy documents.</p>
-      <div class="product-tags">
-        <span class="product-tag">Prompt engineering</span>
-        <span class="product-tag">Writing rules</span>
-        <span class="product-tag">Document quality</span>
+    <div class="product-card">
+      <div class="card-header">
+        <span class="card-number">02</span>
+        <span class="card-status status-live">Live</span>
       </div>
-      <span class="product-link">Try it free</span>
-    </a>
-
-    <!-- PLACEHOLDER 3 -->
-    <div class="product-tile soon" style="cursor: default;">
-      <div class="product-index">03</div>
-      <div class="product-name">Untitled</div>
-      <div class="product-domain">rigour.app</div>
-      <p class="product-desc">The next tool is in the vault. If you are building something serious and think Rigour should know about it, get in touch.</p>
-      <div class="product-tags">
-        <span class="product-tag">In development</span>
+      <div class="card-name">PPE</div>
+      <div class="card-url">rigour.app</div>
+      <p class="card-desc">Answer six diagnostic questions about your document. Get a precise rule stack to paste at the end of any AI prompt. Based on the framework from <em>How to Train Your AI</em> by Scott Stewart. Eliminates generic AI outputs for board papers, briefs, and strategy documents.</p>
+      <div class="card-tags">
+        <span class="card-tag">Prompt engineering</span>
+        <span class="card-tag">Writing rules</span>
+        <span class="card-tag">Document quality</span>
       </div>
-      <span class="product-link-muted">In development</span>
+      <a href="https://rigour.app" target="_blank" rel="noopener" class="card-link">Try it free</a>
     </div>
 
-    <!-- PLACEHOLDER 4 -->
-    <div class="product-tile soon" style="cursor: default;">
-      <div class="product-index">04</div>
-      <div class="product-name">Untitled</div>
-      <div class="product-domain">rigour.app</div>
-      <p class="product-desc">Ideas get built when the problem is real and the solution is honest. No vaporware, no roadmap theatre.</p>
-      <div class="product-tags">
-        <span class="product-tag">Idea stage</span>
+    <!-- Kando -->
+    <div class="product-card">
+      <div class="card-header">
+        <span class="card-number">03</span>
+        <span class="card-status status-soon">Coming soon</span>
       </div>
-      <span class="product-link-muted">Idea stage</span>
+      <div class="card-name">Kando</div>
+      <div class="card-url">getkando.io</div>
+      <p class="card-desc">Speak a brain dump after a meeting. Kando structures it into a Kanban board automatically — tasks, decisions, blockers, done items. Update the board the same way. No typing, no formatting, no friction. Just talk.</p>
+      <div class="card-tags">
+        <span class="card-tag">Voice first</span>
+        <span class="card-tag">Kanban</span>
+        <span class="card-tag">AI structured</span>
+        <span class="card-tag">In development</span>
+      </div>
+      <span class="card-link-disabled">In development</span>
+    </div>
+
+    <!-- Future -->
+    <div class="product-card">
+      <div class="card-header">
+        <span class="card-number">04</span>
+        <span class="card-status status-idea">Idea stage</span>
+      </div>
+      <div class="card-name">Vault</div>
+      <div class="card-url">in the vault</div>
+      <p class="card-desc">The next product is forming. If you are a consultant, adviser, or knowledge worker with a workflow problem worth solving, the studio wants to hear about it. Every Rigour product starts as a real problem someone could not find a tool for.</p>
+      <div class="card-tags">
+        <span class="card-tag">Research</span>
+        <span class="card-tag">Concept</span>
+        <span class="card-tag">TBD</span>
+      </div>
+      <a href="mailto:hello@rigour.app" class="card-link">Get in touch</a>
     </div>
 
   </div>
 </section>
+
+<div class="divider"></div>
 
 <!-- ABOUT -->
-<section class="about-section" id="about">
-  <div class="about-inner">
-    <div class="about-text reveal">
-      <div class="section-label">About Rigour</div>
-      <h2 class="section-title" style="margin-bottom: 32px;">What this<br><em>studio is for</em></h2>
-      <p>Rigour builds AI tools for people doing serious professional work. Not demos, not experiments — tools that earn their place in a real workflow.</p>
-      <p>The standard for every product is the same: does it make the work better, faster, or more defensible? If it does not, it does not ship.</p>
-      <p>Every tool in the Rigour suite is built by someone who has spent years inside large organisations and knows exactly what bad AI output costs when the stakes are real.</p>
+<section id="about">
+  <div class="about-grid">
+    <div class="about-left">
+      <p class="section-eyebrow">About the studio</p>
+      <h2 class="section-title" style="margin-bottom: 28px;">Built small.<br>Built to last.</h2>
+      <p>Rigour Labs is a one-person product studio building AI tools for consulting and advisory professionals. The aim is simple: software that makes expert thinking sharper, faster, and more defensible.</p>
+      <p>Every product comes from a real problem in the workflow. If it would not survive a board paper review, it does not ship.</p>
+      <p>The studio is based in Sydney, Australia.</p>
     </div>
-    <div class="reveal">
-      <div class="principles">
-        <div class="principle">
-          <div class="principle-num">Principle 01</div>
-          <div class="principle-title">Evidence before rhetoric</div>
-          <p class="principle-desc">Every claim in every output must be traceable to a source, a decision, or an observed fact. No management-journal register.</p>
+    <div class="about-right">
+      <div class="principle">
+        <span class="principle-num">01</span>
+        <div>
+          <div class="principle-title">Defensible over polished</div>
+          <p class="principle-desc">Generic outputs are the enemy. Every tool is built to produce work you can stand behind in a meeting, not work that merely looks correct.</p>
         </div>
-        <div class="principle">
-          <div class="principle-num">Principle 02</div>
-          <div class="principle-title">Tools that accumulate</div>
-          <p class="principle-desc">The best tools get more valuable the more you use them. Memory, context, and history are features, not footnotes.</p>
+      </div>
+      <div class="principle">
+        <span class="principle-num">02</span>
+        <div>
+          <div class="principle-title">Context compounds</div>
+          <p class="principle-desc">The best AI tools get better the more you use them. Memory, profiles, and project context are first-class features, not afterthoughts.</p>
         </div>
-        <div class="principle">
-          <div class="principle-num">Principle 03</div>
-          <div class="principle-title">No vague outputs</div>
-          <p class="principle-desc">If the AI cannot name the decision-maker, the constraint, and the consequence of inaction — it has not finished the job.</p>
+      </div>
+      <div class="principle">
+        <span class="principle-num">03</span>
+        <div>
+          <div class="principle-title">One product at a time</div>
+          <p class="principle-desc">Nothing ships until it solves the problem properly. The backlog is long but the focus is narrow.</p>
         </div>
-        <div class="principle">
-          <div class="principle-num">Principle 04</div>
-          <div class="principle-title">Small studio, long game</div>
-          <p class="principle-desc">One tool built well beats five tools built fast. Rigour does not ship until it is ready for someone who cannot afford for it not to work.</p>
+      </div>
+      <div class="principle">
+        <span class="principle-num">04</span>
+        <div>
+          <div class="principle-title">Privacy by default</div>
+          <p class="principle-desc">No tracking scripts. No advertising. Data stays in Australia. Built for professionals who handle sensitive client information.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<div class="divider"></div>
+
 <!-- ROADMAP -->
-<section class="roadmap-section" id="roadmap">
-  <div class="section-label reveal">Roadmap</div>
-  <h2 class="section-title reveal">What is<br><em>coming next</em></h2>
-  <div class="roadmap-grid reveal">
-    <div class="roadmap-item">
-      <div class="roadmap-stage">In development</div>
-      <div class="roadmap-name">Arciv — full launch</div>
-      <p class="roadmap-desc">Memory, context profiles, PPE writing rules, and session history. Arciv Pro and Arciv Teams subscriptions. Full deployment to arciv.ai.</p>
+<section id="roadmap">
+  <p class="section-eyebrow">Roadmap</p>
+  <h2 class="section-title">Where things stand</h2>
+  <p class="section-sub" style="margin-bottom: 48px;">Updated April 2026.</p>
+
+  <div class="roadmap-list">
+
+    <div class="roadmap-row">
+      <div class="roadmap-stage"><span class="stage-badge stage-live-proto">Live — prototype</span></div>
+      <div class="roadmap-name"><span>Arciv</span></div>
+      <div class="roadmap-desc">AI workspace with persistent memory, context profiles, project management, voice capture, document library, and Kando board. Prototype with 10 consultants underway.</div>
     </div>
-    <div class="roadmap-item">
-      <div class="roadmap-stage">Planned</div>
-      <div class="roadmap-name">Arciv — multi-model</div>
-      <p class="roadmap-desc">Claude and GPT-4 available per session. Users choose their model. Context and memory travel with them regardless of which AI they use.</p>
+
+    <div class="roadmap-row">
+      <div class="roadmap-stage"><span class="stage-badge stage-live">Live</span></div>
+      <div class="roadmap-name"><span>PPE</span></div>
+      <div class="roadmap-desc">Six questions, one rule stack. Free at rigour.app. Based on <em>How to Train Your AI</em>.</div>
     </div>
-    <div class="roadmap-item">
-      <div class="roadmap-stage">Planned</div>
-      <div class="roadmap-name">PPE — rule library v2</div>
-      <p class="roadmap-desc">Expanded artefact library, new cognitive altitude levels, and domain-specific rule packs for legal, finance, and government contexts.</p>
+
+    <div class="roadmap-row">
+      <div class="roadmap-stage"><span class="stage-badge stage-dev">In development</span></div>
+      <div class="roadmap-name"><span>Kando</span></div>
+      <div class="roadmap-desc">Speak a brain dump, get a structured board. Voice-first Kanban that works the way your brain does.</div>
     </div>
-    <div class="roadmap-item">
-      <div class="roadmap-stage">Idea stage</div>
-      <div class="roadmap-name">Meeting intelligence</div>
-      <p class="roadmap-desc">From transcript to action register to stakeholder brief in one pass. Named owners, dated commitments, and a hostile-stakeholder test built in.</p>
+
+    <div class="roadmap-row">
+      <div class="roadmap-stage"><span class="stage-badge stage-planned">Planned</span></div>
+      <div class="roadmap-name"><span>Arciv Billing</span></div>
+      <div class="roadmap-desc">Pro, Pro Plus, and Teams tiers. Launches after prototype feedback is synthesised.</div>
     </div>
-    <div class="roadmap-item">
-      <div class="roadmap-stage">Idea stage</div>
-      <div class="roadmap-name">Document audit</div>
-      <p class="roadmap-desc">Upload any document. Get a structured critique: unsupported claims, missing decision-makers, passive obligations, and banned constructions.</p>
+
+    <div class="roadmap-row">
+      <div class="roadmap-stage"><span class="stage-badge stage-planned">Planned</span></div>
+      <div class="roadmap-name"><span>Arciv Teams</span></div>
+      <div class="roadmap-desc">Shared project workspaces, team session archive, five-seat plans.</div>
     </div>
-    <div class="roadmap-item">
-      <div class="roadmap-stage">Idea stage</div>
-      <div class="roadmap-name">Brief builder</div>
-      <p class="roadmap-desc">Structured diagnostic for executive briefs and ministerial notes. The first sentence must earn its place. Everything else follows from that.</p>
+
+    <div class="roadmap-row">
+      <div class="roadmap-stage"><span class="stage-badge stage-idea">Idea stage</span></div>
+      <div class="roadmap-name"><span>PPE v2</span></div>
+      <div class="roadmap-desc">Expanded artefact library, domain-specific rule packs for legal, finance, and government.</div>
     </div>
+
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Rigour<span>.</span>studio</div>
-  <ul class="footer-links">
-    <li><a href="https://arciv.ai" target="_blank">Arciv</a></li>
-    <li><a href="https://rigour.app" target="_blank">PPE</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="mailto:hello@rigour.app">Contact</a></li>
-  </ul>
-  <div class="footer-copy">© 2026 Rigour — studio.rigour.app</div>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Rigour<span>.</span>studio</div>
+      <div class="footer-tagline">Rigour Labs — Sydney, Australia</div>
+    </div>
+    <nav class="footer-links">
+      <a href="https://arciv.ai" target="_blank" rel="noopener">Arciv</a>
+      <a href="https://rigour.app" target="_blank" rel="noopener">PPE</a>
+      <a href="#products">Kando</a>
+      <a href="#about">About</a>
+      <a href="mailto:hello@rigour.app">Contact</a>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Rigour Labs — studio.rigour.app</span>
+    <div class="footer-contact"><a href="mailto:hello@rigour.app">hello@rigour.app</a></div>
+  </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  const reveals = document.querySelectorAll('.reveal');
+<script>
+  // Scroll reveal
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        const delay = entry.target.dataset.delay || 0;
+        setTimeout(() => {
+          entry.target.classList.add('revealed');
+        }, delay);
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-  reveals.forEach(el => observer.observe(el));
+  }, { threshold: 0.12 });
 
-  document.querySelectorAll('.nav-links a').forEach(a => {
-    a.addEventListener('click', () => {
-      documen
+  // Stagger product cards
+  document.querySelectorAll('.product-card').forEach((el, i) => {
+    el.dataset.delay = i * 80;
+    observer.observe(el);
+  });
+
+  // Stagger principles
+  document.querySelectorAll('.principle').forEach((el, i) => {
+    el.dataset.delay = i * 80;
+    observer.observe(el);
+  });
+
+  // Stagger roadmap rows
+  document.querySelectorAll('.roadmap-row').forEach((el, i) => {
+    el.dataset.delay = i * 60;
+    observer.observe(el);
+  });
+
+  // Smooth nav active state
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.style.color = '';
+          if (link.getAttribute('href') === '#' + entry.target.id) {
+            link.style.color = 'var(--amber-light)';
+          }
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(s => navObserver.observe(s));
+</script>
+
+</body>
+</html>
