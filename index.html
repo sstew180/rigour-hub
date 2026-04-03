@@ -669,6 +669,124 @@
     .hero-title { font-size: 44px; }
     .products-header h2, .section-title { font-size: 34px; }
   }
+
+  /* ─── CONTACT MODAL ─── */
+  .contact-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  .contact-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .contact-modal {
+    background: var(--deep);
+    border: 1px solid var(--border);
+    padding: 40px;
+    width: 100%;
+    max-width: 480px;
+    transform: translateY(16px);
+    transition: transform 0.25s ease;
+  }
+  .contact-overlay.open .contact-modal {
+    transform: translateY(0);
+  }
+  .contact-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 28px;
+  }
+  .contact-modal-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 300;
+    color: var(--cream);
+  }
+  .contact-close {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    padding: 4px;
+    transition: color 0.2s;
+  }
+  .contact-close:hover { color: var(--amber-light); }
+  .contact-field {
+    margin-bottom: 16px;
+  }
+  .contact-field label {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 7px;
+  }
+  .contact-field input,
+  .contact-field textarea {
+    width: 100%;
+    background: var(--vault);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 14px;
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: none;
+  }
+  .contact-field input:focus,
+  .contact-field textarea:focus {
+    border-color: var(--amber-line);
+  }
+  .contact-submit {
+    width: 100%;
+    margin-top: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--amber);
+    border: none;
+    padding: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .contact-submit:hover { background: var(--amber-light); }
+  .contact-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+  .contact-success {
+    text-align: center;
+    padding: 20px 0;
+  }
+  .contact-success-icon {
+    font-size: 32px;
+    margin-bottom: 16px;
+  }
+  .contact-success-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    color: var(--cream);
+    margin-bottom: 10px;
+  }
+  .contact-success-msg {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.65;
+  }
 </style>
 </head>
 <body>
@@ -783,7 +901,7 @@
         <span class="card-tag">Concept</span>
         <span class="card-tag">TBD</span>
       </div>
-      <a href="mailto:hello@rigour.app" class="card-link">Get in touch</a>
+      <a href="#" onclick="openContact(); return false;" class="card-link">Get in touch</a>
     </div>
 
   </div>
@@ -797,7 +915,7 @@
     <div class="about-left">
       <p class="section-eyebrow">About the studio</p>
       <h2 class="section-title" style="margin-bottom: 28px;">Built small.<br>Built to last.</h2>
-      <p>Rigour Labs is a small team product studio building AI tools for consulting and advisory professionals. The aim is simple: software that makes expert thinking sharper, faster, and more defensible.</p>
+      <p>Rigour Labs is a one-person product studio building AI tools for consulting and advisory professionals. The aim is simple: software that makes expert thinking sharper, faster, and more defensible.</p>
       <p>Every product comes from a real problem in the workflow. If it would not survive a board paper review, it does not ship.</p>
       <p>The studio is based in Sydney, Australia.</p>
     </div>
@@ -883,6 +1001,36 @@
   </div>
 </section>
 
+<!-- CONTACT MODAL -->
+<div class="contact-overlay" id="contactOverlay">
+  <div class="contact-modal">
+    <div class="contact-modal-header">
+      <div class="contact-modal-title">Get in touch</div>
+      <button class="contact-close" onclick="closeContact()" aria-label="Close">&times;</button>
+    </div>
+    <div id="contactForm">
+      <div class="contact-field">
+        <label>Your name</label>
+        <input type="text" id="contactName" placeholder="Jane Smith" />
+      </div>
+      <div class="contact-field">
+        <label>Email address</label>
+        <input type="email" id="contactEmail" placeholder="jane@example.com" />
+      </div>
+      <div class="contact-field">
+        <label>Message</label>
+        <textarea id="contactMessage" rows="5" placeholder="What are you working on?"></textarea>
+      </div>
+      <button class="contact-submit" id="contactSubmit" onclick="submitContact()">Send message</button>
+    </div>
+    <div id="contactSuccess" class="contact-success" style="display:none">
+      <div class="contact-success-icon">✓</div>
+      <div class="contact-success-title">Message sent</div>
+      <p class="contact-success-msg">Thanks for reaching out. You will hear back at the email you provided.</p>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-top">
@@ -895,19 +1043,67 @@
       <a href="https://rigour.app" target="_blank" rel="noopener">PPE</a>
       <a href="#products">Kando</a>
       <a href="#about">About</a>
-      <a href="mailto:hello@rigour.app">Contact</a>
+      <a href="#" onclick="openContact(); return false;">Contact</a>
     </nav>
   </div>
   <div class="footer-bottom">
     <span class="footer-copy">© 2026 Rigour Labs — studio.rigour.app</span>
-    <div class="footer-contact"><a href="mailto:hello@rigour.app">hello@rigour.app</a></div>
+    <div class="footer-contact"><a href="#" onclick="openContact(); return false;">hello@rigour.app</a></div>
   </div>
 </footer>
 
 <script>
+  // Contact modal
+  function openContact() {
+    document.getElementById('contactOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeContact() {
+    document.getElementById('contactOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('contactOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closeContact();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeContact();
+  });
+
+  async function submitContact() {
+    const name = document.getElementById('contactName').value.trim();
+    const email = document.getElementById('contactEmail').value.trim();
+    const message = document.getElementById('contactMessage').value.trim();
+    if (!name || !email || !message) {
+      alert('Please fill in all fields before sending.');
+      return;
+    }
+    const btn = document.getElementById('contactSubmit');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    try {
+      const res = await fetch('https://formspree.io/f/mdapwobr', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ name, email, message })
+      });
+      if (res.ok) {
+        document.getElementById('contactForm').style.display = 'none';
+        document.getElementById('contactSuccess').style.display = 'block';
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Send message';
+        alert('Something went wrong. Please try again or email hello@rigour.app directly.');
+      }
+    } catch(e) {
+      btn.disabled = false;
+      btn.textContent = 'Send message';
+      alert('Something went wrong. Please try again or email hello@rigour.app directly.');
+    }
+  }
+
   // Scroll reveal
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const delay = entry.target.dataset.delay || 0;
         setTimeout(() => {
@@ -918,28 +1114,22 @@
     });
   }, { threshold: 0.12 });
 
-  // Stagger product cards
   document.querySelectorAll('.product-card').forEach((el, i) => {
     el.dataset.delay = i * 80;
     observer.observe(el);
   });
-
-  // Stagger principles
   document.querySelectorAll('.principle').forEach((el, i) => {
     el.dataset.delay = i * 80;
     observer.observe(el);
   });
-
-  // Stagger roadmap rows
   document.querySelectorAll('.roadmap-row').forEach((el, i) => {
     el.dataset.delay = i * 60;
     observer.observe(el);
   });
 
-  // Smooth nav active state
+  // Nav active state
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-links a');
-
   const navObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -952,7 +1142,6 @@
       }
     });
   }, { threshold: 0.4 });
-
   sections.forEach(s => navObserver.observe(s));
 </script>
 
